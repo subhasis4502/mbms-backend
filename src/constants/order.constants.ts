@@ -1,0 +1,1 @@
+export const DELIVERY_STATUS = ['Pending', 'Delivered', 'Cancelled']
