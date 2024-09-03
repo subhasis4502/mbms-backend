@@ -10,11 +10,12 @@ import {
   getOrderByUsername,
   updateOrderStatus
 } from '../controllers/order.controller';
+import { authenticate, authorize } from '../middleware/auth.middleware';
 
 const router = express.Router();
 
 // Apply authentication middleware to all routes
-// router.use(authenticate);
+router.use(authenticate);
 
 // Create a new order
 router.post('/', createOrder);
@@ -32,7 +33,7 @@ router.get('/:id', getOrderById);
 router.put('/:id', updateOrder);
 
 // Delete an order
-router.delete('/:id', deleteOrder);
+router.delete('/:id', authorize('admin'), deleteOrder);
 
 // Get orders by platform
 router.get('/platform/:platform', getOrdersByPlatform);

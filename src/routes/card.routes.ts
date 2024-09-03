@@ -5,7 +5,7 @@ import { authenticate, authorize } from '../middleware/auth.middleware';
 const router = express.Router();
 
 // Apply authentication middleware to all routes
-// router.use(authenticate);
+router.use(authenticate);
 
 // Create a new card
 router.post('/', cardController.createCard);

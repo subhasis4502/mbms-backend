@@ -44,7 +44,7 @@ export const registerUser = async (req: IAuthRequest, res: Response) => {
       { expiresIn: '1h' },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.json({ user, token });
       }
     );
   } catch (err) {
@@ -83,7 +83,7 @@ export const loginUser = async (req: IAuthRequest, res: Response) => {
       { expiresIn: '1h' },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.json({ user, token });
       }
     );
   } catch (err) {
