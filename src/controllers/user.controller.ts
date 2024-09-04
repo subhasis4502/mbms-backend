@@ -8,8 +8,8 @@ import { IAuthRequest } from '../interfaces/express.interface';
 // Register a new user
 export const registerUser = async (req: IAuthRequest, res: Response) => {
   try {
-    debugger
-    const { username, name, email, password } = req.body;
+    const { name, email, password } = req.body;
+    const username = email.split("@")[0];
 
     // Check if user already exists
     let user = await User.findOne({ $or: [{ email }, { username }] });
