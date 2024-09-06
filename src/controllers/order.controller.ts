@@ -8,10 +8,12 @@ import { DELIVERY_STATUS } from '../constants/order.constants';
 // Create a new order
 export const createOrder = async (req: Request, res: Response) => {
     try {
-        const { deviceName, platform, orderId, card, quantity, pincode, amountPaid, returnAmount, doneBy } = req.body;
+        const { deviceName, platform, orderId, card, quantity, pincode, amountPaid, profit, doneBy } = req.body;
+        
         const cashBack = CASHBACK_CARD.includes(card) ? Math.floor(amountPaid * 0.05) : 0;
+        console.log(amountPaid, cashBack, profit);
+        const returnAmount = amountPaid-cashBack+profit;
         const commission = returnAmount - amountPaid;
-        const profit = cashBack + commission;
 
         const cardDetails = await Card.findOne({ name: card });
 
