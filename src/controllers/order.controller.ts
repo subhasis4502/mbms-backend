@@ -142,7 +142,7 @@ export const getOrdersByDeliveryStatus = async (req: Request, res: Response) => 
 // Update an order status
 export const updateOrderStatus = async (req: Request, res: Response) => {
     try {
-        const { delivery } = req.body;
+        const { delivery, orderId } = req.body;
 
         if (!DELIVERY_STATUS.includes(delivery)) {
             return res.status(400).json({ message: 'Invalid delivery status' });
@@ -152,6 +152,7 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
             req.params.id,
             {
                 delivery: delivery,
+                orderId: orderId,
                 ...(delivery === 'Delivered' ? { deliveryDate: new Date() } : {})
             },
             { new: true }
