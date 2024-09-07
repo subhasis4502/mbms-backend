@@ -1,1 +1,1 @@
-export const DELIVERY_STATUS = ['Pending', 'Delivered', 'Cancelled']
+export const DELIVERY_STATUS = ['Pending', 'Delivered', 'Money Received']
