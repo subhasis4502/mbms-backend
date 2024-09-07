@@ -5,7 +5,7 @@ import { ICard } from '../interfaces/card.interface';
 // Create a new card
 export const createCard = async (req: Request, res: Response) => {
   try {
-    const { name, type, totalLimit, currentLimit, billDate } = req.body;
+    const { name, type, totalLimit, billDate } = req.body;
 
     let card = await Card.findOne({ type });
     let savedCard;
@@ -14,7 +14,7 @@ export const createCard = async (req: Request, res: Response) => {
         name,
         type,
         totalLimit,
-        currentLimit,
+        currentLimit: totalLimit,
         billDate
       });
 
