@@ -5,10 +5,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 
 // Route imports
-import userRoutes from './routes/user.routes';
-import cardRoutes from './routes/card.routes';
-import orderRoutes from './routes/order.routes';
-import paymentRoutes from './routes/payment.routes';
+import { cardRoutes, hisabRoutes, orderRoutes, paymentRoutes, userRoutes } from './routes';
 
 // Load environment variables
 dotenv.config();
@@ -29,6 +26,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/cards', cardRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/hisabs', hisabRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

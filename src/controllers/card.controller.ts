@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import Card from '../models/card.model';
-import { ICard } from '../interfaces/card.interface';
 
 // Create a new card
 export const createCard = async (req: Request, res: Response) => {
