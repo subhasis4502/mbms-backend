@@ -21,4 +21,5 @@ export interface IOrder extends Document {
     paymentReceived: boolean;
     profit: number;
     transfer?: boolean;
+    isEmi?: boolean;
   }

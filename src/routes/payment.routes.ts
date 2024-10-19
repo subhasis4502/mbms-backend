@@ -5,13 +5,16 @@ import { authenticate, authorize } from '../middleware/auth.middleware';
 const router = express.Router();
 
 // Apply authentication middleware to all routes
-router.use(authenticate);
+// router.use(authenticate);
 
 // Create a new payment
 router.post('/', paymentController.createPayment);
 
 // Get all payments
 router.get('/', paymentController.getAllPayments);
+
+// Get last bank payment
+router.get('/last', paymentController.getLastPayment);
 
 // Get a single payment by ID
 router.get('/:id', paymentController.getPaymentById);

@@ -13,6 +13,9 @@ router.post('/', hisabController.createHisab);
 // Get all hisabs
 router.get('/', hisabController.getAllHisabs);
 
+// Get last hisab
+router.get('/last', hisabController.getLastHisab);
+
 // Update a hisab
 router.put('/:id', hisabController.updateHisab);
 

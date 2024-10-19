@@ -4,11 +4,12 @@ import Hisab from "../models/hisab.model";
 // Create a new hisab
 export const createHisab = async (req: Request, res: Response) => {
   try {
-    const { title, details } = req.body;
+    const { title, details, totalAmount } = req.body;
 
     const newHisab = new Hisab({
       title,
-      details
+      details,
+      totalAmount
     })
 
     const savedHisab = await newHisab.save();
@@ -21,8 +22,18 @@ export const createHisab = async (req: Request, res: Response) => {
 // Get all hisabs
 export const getAllHisabs = async (req: Request, res: Response) => {
   try {
-    const hisabs = await Hisab.find({ isActive: true });
+    const hisabs = await Hisab.find({ isActive: true }).sort({ _id: -1 });
     res.json(hisabs);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching hisabs', error });
+  }
+};
+
+// Get last hisab
+export const getLastHisab = async (req: Request, res: Response) => {
+  try {
+    const hisabs = await Hisab.find({ isActive: true }).sort({ _id: -1 }).limit(1);
+    res.json(hisabs[0]);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching hisabs', error });
   }

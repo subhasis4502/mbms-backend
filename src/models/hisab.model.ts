@@ -4,6 +4,7 @@ import { IHisab } from "../interfaces/hisab.interface";
 const HisabSchema: Schema = new Schema({
   title: { type: String, required: true },
   details: { type: String, required: true },
+  totalAmount: { type: Number, required: true },
   isActive: { type: Boolean, default: true },
   paymentReceived: { type: Boolean, default: false },
 });

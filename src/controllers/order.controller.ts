@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { IOrder } from '../interfaces/order.interface';
 import { Card, Order, User } from '../models';
 import { CASHBACK_CARD } from '../constants/card.constants';
-import { ObjectId } from 'mongoose';
 import { DELIVERY_STATUS } from '../constants/order.constants';
 
 // Create a new order
@@ -11,7 +10,6 @@ export const createOrder = async (req: Request, res: Response) => {
         const { deviceName, platform, orderId, card, quantity, pincode, amountPaid, profit, doneBy } = req.body;
         
         const cashBack = CASHBACK_CARD.includes(card) ? Math.floor(amountPaid * 0.05) : 0;
-        console.log(amountPaid, cashBack, profit);
         const returnAmount = amountPaid-cashBack+profit;
         const commission = returnAmount - amountPaid;
 
@@ -54,7 +52,7 @@ export const createOrder = async (req: Request, res: Response) => {
 // Get all orders
 export const getAllOrders = async (req: Request, res: Response) => {
     try {
-        const orders = await Order.find();
+        const orders = await Order.find().sort({ _id: -1});
         res.status(200).json(orders);
     } catch (error) {
         res.status(400).json({ message: 'Error fetching orders', error });

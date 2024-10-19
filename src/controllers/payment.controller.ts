@@ -26,7 +26,7 @@ export const createPayment = async (req: Request, res: Response) => {
         // Update card's payments and currentLimit
         card.payments.push(newPayment._id as mongoose.Types.ObjectId);
 
-        if(type === "Debit") card.currentLimit -= amount;
+        if (type === "Debit") card.currentLimit -= amount;
         else card.currentLimit += amount;
 
         await card.save();
@@ -40,8 +40,18 @@ export const createPayment = async (req: Request, res: Response) => {
 // Get all payments
 export const getAllPayments = async (req: Request, res: Response) => {
     try {
-        const payments = await Payment.find();
+        const payments = await Payment.find().sort({ _id: -1 });
         res.json(payments);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching payments', error });
+    }
+};
+
+// Get last bank credited payment
+export const getLastPayment = async (req: Request, res: Response) => {
+    try {
+        const payments = await Payment.find({type: "Credit", source: "ICICI Savings Account"}).sort({ _id: -1 }).limit(1);
+        res.json(payments[0]);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching payments', error });
     }

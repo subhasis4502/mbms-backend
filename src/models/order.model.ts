@@ -5,7 +5,7 @@ import { DELIVERY_STATUS } from "../constants/order.constants";
 const OrderSchema: Schema = new Schema({
     deviceName: { type: String, required: true },
     platform: { type: String, required: true },
-    orderId: { type: String, required: true, unique: true },
+    orderId: { type: String, required: true },
     card: { type: Schema.Types.ObjectId, ref: 'Card', required: true },
     cardName: { type: String, required: true },
     quantity: { type: Number, required: true },
@@ -21,7 +21,8 @@ const OrderSchema: Schema = new Schema({
     deliveryDate: { type: Date },
     paymentReceived: { type: Boolean, default: false },
     profit: { type: Number, required: true },
-    transfer: { type: Boolean, default: false }
+    transfer: { type: Boolean, default: false },
+    isEmi: { type: Boolean, default: false }
 });
 
 const Order = mongoose.model<IOrder>('Order', OrderSchema);
