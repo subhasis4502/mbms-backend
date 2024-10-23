@@ -8,7 +8,8 @@ import {
   getOrdersByPlatform,
   getOrdersByDeliveryStatus,
   getOrderByUsername,
-  updateOrderStatus
+  updateOrderStatus,
+  updateProfitTransferStatus
 } from '../controllers/order.controller';
 import { authenticate, authorize } from '../middleware/auth.middleware';
 
@@ -43,5 +44,8 @@ router.get('/delivery/:status', getOrdersByDeliveryStatus);
 
 // Update an order delivey status
 router.put('/delivery/:id', updateOrderStatus);
+
+// Update an order profit transfer status
+router.put('/transfer/:id', updateProfitTransferStatus);
 
 export default router;

@@ -8,9 +8,9 @@ import { DELIVERY_STATUS } from '../constants/order.constants';
 export const createOrder = async (req: Request, res: Response) => {
     try {
         const { deviceName, platform, orderId, card, quantity, pincode, amountPaid, profit, doneBy } = req.body;
-        
+
         const cashBack = CASHBACK_CARD.includes(card) ? Math.floor(amountPaid * 0.05) : 0;
-        const returnAmount = amountPaid-cashBack+profit;
+        const returnAmount = amountPaid - cashBack + profit;
         const commission = returnAmount - amountPaid;
 
         const cardDetails = await Card.findOne({ name: card });
@@ -52,7 +52,7 @@ export const createOrder = async (req: Request, res: Response) => {
 // Get all orders
 export const getAllOrders = async (req: Request, res: Response) => {
     try {
-        const orders = await Order.find().sort({ _id: -1});
+        const orders = await Order.find().sort({ _id: -1 });
         res.status(200).json(orders);
     } catch (error) {
         res.status(400).json({ message: 'Error fetching orders', error });
@@ -137,7 +137,7 @@ export const getOrdersByDeliveryStatus = async (req: Request, res: Response) => 
     }
 };
 
-// Update an order status
+// Update an order deliver status
 export const updateOrderStatus = async (req: Request, res: Response) => {
     try {
         const { delivery, orderId } = req.body;
@@ -163,5 +163,29 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
         res.status(200).json(updatedOrder);
     } catch (error) {
         res.status(400).json({ message: 'Error updating order status', error });
+    }
+};
+
+// Update an order status
+export const updateProfitTransferStatus = async (req: Request, res: Response) => {
+    try {
+        const { transfer, orderId } = req.body;
+
+        const updatedOrder = await Order.findByIdAndUpdate(
+            req.params.id,
+            {
+                transfer,
+                orderId: orderId,
+            },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        res.status(200).json(updatedOrder);
+    } catch (error) {
+        res.status(400).json({ message: 'Error updating order profit transfer status', error });
     }
 };
