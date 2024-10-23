@@ -31,7 +31,7 @@ export const createCard = async (req: Request, res: Response) => {
 // Get all cards
 export const getAllCards = async (req: Request, res: Response) => {
   try {
-    const cards = await Card.find({ isActive: true });
+    const cards = await Card.find({ isActive: true }).populate("payments");
     res.json(cards);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching cards', error });
